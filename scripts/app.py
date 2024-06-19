@@ -20,7 +20,7 @@ def predict(image, audio, size, steps, fps, cfg, pose_weight, face_weight, lip_w
 
     with Image.open(image) as img:
         print(f"image path = {image}")
-        img = ImageOps.pad((size, size))
+        img = ImageOps.pad(img, (size, size))
         img.save(image)
 
     config = {
