@@ -21,12 +21,14 @@ def predict(image, audio, size, steps, fps, cfg, pose_weight, face_weight, lip_w
     with Image.open(image) as img:
         img.thumbnail((size, size), Image.Resampling.LANCZOS)
         img.save(image)
+        width, height = img.size
 
+    print(f"width={width}, height={height}")
     config = {
         'data': {
             'source_image': {
-                'width': size,
-                'height': size
+                'width': width,
+                'height': height
             },
             'export_video': {
                 'fps': fps
