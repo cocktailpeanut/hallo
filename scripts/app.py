@@ -19,6 +19,7 @@ def predict(image, audio, size, steps, fps, cfg, pose_weight, face_weight, lip_w
     """
 
     with Image.open(image) as img:
+        print(f"image path = {image}")
         img.thumbnail((size, size), Image.Resampling.LANCZOS)
         img.save(image)
         width, height = img.size
