@@ -12,7 +12,7 @@ python scripts/app.py
 import argparse
 from inference import inference_process
 import gradio as gr
-from PIL import Image
+from PIL import Image, ImageOps
 def predict(image, audio, size, steps, fps, cfg, pose_weight, face_weight, lip_weight, face_expand_ratio):
     """
     Create a gradio interface with the configs.
@@ -20,16 +20,14 @@ def predict(image, audio, size, steps, fps, cfg, pose_weight, face_weight, lip_w
 
     with Image.open(image) as img:
         print(f"image path = {image}")
-        img.thumbnail((size, size), Image.Resampling.LANCZOS)
+        img = ImageOps.pad((size, size))
         img.save(image)
-        width, height = img.size
 
-    print(f"width={width}, height={height}")
     config = {
         'data': {
             'source_image': {
-                'width': width,
-                'height': height
+                'width': size,
+                'height': size
             },
             'export_video': {
                 'fps': fps
