@@ -12,10 +12,16 @@ python scripts/app.py
 import argparse
 from inference import inference_process
 import gradio as gr
+from PIL import Image
 def predict(image, audio, size, steps, fps, cfg, pose_weight, face_weight, lip_weight, face_expand_ratio):
     """
     Create a gradio interface with the configs.
     """
+
+    with Image.open(image) as img:
+        img.thumbnail((size, size), Image.Resampling.LANCZOS)
+        img.save(image)
+
     config = {
         'data': {
             'source_image': {
